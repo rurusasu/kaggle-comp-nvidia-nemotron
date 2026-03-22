@@ -1,0 +1,13 @@
+{
+  "id": "koheimiki/nvidia-nemotron-lora-baseline",
+  "title": "NVIDIA Nemotron LoRA Baseline",
+  "code_file": "notebook.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "competition_sources": ["nvidia-nemotron-model-reasoning-challenge"],
+  "model_sources": ["metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1"],
+  "keywords": ["gpu"]
+}

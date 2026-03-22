@@ -37,6 +37,51 @@ NVIDIA Nemotron 3 Nano の推論精度を向上させる。許可されるテク
 
 - `train.csv`, `test.csv`
 
+## Current Approach
+
+### Baseline: SFT with LoRA (v1)
+
+- **Method:** Supervised Fine-Tuning (SFT) on train.csv (9,500 examples, 6 task types)
+- **Base Model:** Nemotron-3-Nano-30B-A3B-BF16 (4bit quantized)
+- **LoRA Config:** rank=32, alpha=64, dropout=0.05, target=all attention+MLP layers
+- **Training:** 3 epochs, batch=1, grad_accum=8, lr=2e-4, cosine schedule
+- **Answer Format:** `\boxed{ANSWER}` extraction
+
+### Workflow
+
+1. **学習は Kaggle Notebook で実行**（ローカル GPU は RTX 4060 8GB で VRAM 不足）
+2. Kaggle Notebook URL: https://www.kaggle.com/code/koheimiki/nvidia-nemotron-lora-baseline
+3. 学習完了後、`submission.zip`（LoRA adapter）をダウンロード
+4. `kaggle competitions submit` で提出
+
+### File Layout
+
+- `kaggle-notebook/notebook.py` — Kaggle 実行用スクリプト
+- `kaggle-notebook/kernel-metadata.json` — Kaggle push 用メタデータ
+- `outputs/kaggle_training_notebook.py` — 同スクリプトのコピー
+- `src/` — ローカル分析・評価用コード
+- `data/raw/train.csv` — 6 task types (bit_manipulation, cipher, gravitational, numeral_conversion, symbol_equation, unit_conversion)
+- `data/raw/test.csv` — public test (3 examples, real test is hidden)
+
+### Task Types in Training Data
+
+| Type | Count | Description |
+|---|---|---|
+| bit_manipulation | 1602 | 8-bit binary pattern transformations |
+| cipher | 1576 | Substitution cipher decryption |
+| gravitational | 1597 | Physics/gravity calculations |
+| numeral_conversion | 1576 | Arabic to Roman numeral conversion |
+| symbol_equation | 1555 | Symbolic transformation rules |
+| unit_conversion | 1594 | Numerical unit conversion |
+
+### Improvement Ideas
+
+- Chain-of-thought reasoning in training responses
+- Task-specific prompts per task type
+- Data augmentation (generate more examples per task)
+- GRPO/RL after SFT
+- Larger sequence length for complex reasoning
+
 ## Documentation
 
 **IMPORTANT: Before starting any implementation work, you MUST read the relevant docs first.**

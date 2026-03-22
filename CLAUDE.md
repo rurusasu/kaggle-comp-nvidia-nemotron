@@ -1,3 +1,44 @@
+# NVIDIA Nemotron Model Reasoning Challenge
+
+## Competition Info
+
+- **URL:** https://www.kaggle.com/competitions/nvidia-nemotron-model-reasoning-challenge
+- **Deadline:** 2026-06-15 23:59 UTC
+- **Prize:** $106,388
+- **Category:** Featured
+- **Launched at:** NVIDIA GTC 2026
+
+## Task
+
+NVIDIA Nemotron 3 Nano の推論精度を向上させる。許可されるテクニック:
+- プロンプト最適化
+- 合成データ生成
+- データキュレーション・フィルタリング
+- ファインチューニング
+- 強化学習
+
+## Evaluation
+
+- **Metric:** pass@1 (majority voting @ 64 generations)
+- pass@1: 64世代にわたる平均精度
+- maj@64: 64世代にわたる多数決精度
+
+## Submission Format
+
+- Code Competition
+- Submission Demo: https://www.kaggle.com/code/ryanholbrook/nvidia-nemotron-submission-demo
+
+## Infrastructure
+
+- Google Cloud G4 VM ベース
+- NVIDIA Nemotron モデルを使用（Hugging Face / NVIDIA Developer で公開）
+
+## Data
+
+- `train.csv`, `test.csv`
+
+---
+
 # Kaggle Competition Workspace
 
 ## Structure

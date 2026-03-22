@@ -5,6 +5,11 @@ Run this in a Kaggle notebook with GPU enabled.
 Requires: transformers, peft, trl, datasets, bitsandbytes
 """
 
+import subprocess
+import sys
+
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "trl", "peft", "bitsandbytes", "datasets", "accelerate"])
+
 import json
 import os
 import zipfile

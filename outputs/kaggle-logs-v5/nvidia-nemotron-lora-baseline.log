@@ -1,0 +1,15 @@
+[{"stream_name":"stdout","time":4.017643085,"data":"     „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 121.7/121.7 kB 4.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":286.478167308,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 531.0/531.0 kB 14.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":287.075118773,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 60.7/60.7 MB 31.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":1758.017305835,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1758.017395348,"data":"  File \"/kaggle/src/script.py\", line 13, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1758.017450286,"data":"    os.environ[\"TRUST_REMOTE_CODE\"] = \"1\"\n"}
+,{"stream_name":"stderr","time":1758.017496051,"data":"    ^^\n"}
+,{"stream_name":"stderr","time":1758.01759477,"data":"NameError: name 'os' is not defined. Did you forget to import 'os'?\n"}
+,{"stream_name":"stderr","time":1760.539529533,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1760.53957376,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1762.502838104,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1762.502872196,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1764.856145859,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1766.036779135,"data":"[NbConvertApp] Writing 301193 bytes to __results__.html\n"}
+]

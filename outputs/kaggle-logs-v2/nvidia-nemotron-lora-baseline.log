@@ -1,0 +1,36 @@
+[{"stream_name":"stdout","time":4.316019782,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 531.0/531.0 kB 14.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":4.874861725,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 60.7/60.7 MB 33.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":36.166119115,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":36.166158442,"data":"  File \"/kaggle/src/script.py\", line 183, in \u003cmodule\u003e\n"}
+,{"stream_name":"stdout","time":36.16611911,"data":"Preparing dataset...\n"}
+,{"stream_name":"stderr","time":36.166422728,"data":"    adapter_dir = train()\n"}
+,{"stream_name":"stderr","time":36.167336655,"data":"                  ^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.167446975,"data":"  File \"/kaggle/src/script.py\", line 122, in train\n"}
+,{"stream_name":"stderr","time":36.167651691,"data":"    dataset = prepare_dataset()\n"}
+,{"stream_name":"stderr","time":36.168694251,"data":"              ^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.168713705,"data":"  File \"/kaggle/src/script.py\", line 70, in prepare_dataset\n"}
+,{"stream_name":"stderr","time":36.168966043,"data":"    df = pd.read_csv(TRAIN_CSV)\n"}
+,{"stream_name":"stderr","time":36.16977271,"data":"         ^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.169839945,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1026, in read_csv\n"}
+,{"stream_name":"stderr","time":36.171321517,"data":"    return _read(filepath_or_buffer, kwds)\n"}
+,{"stream_name":"stderr","time":36.172392958,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.172483705,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 620, in _read\n"}
+,{"stream_name":"stderr","time":36.172781239,"data":"    parser = TextFileReader(filepath_or_buffer, **kwds)\n"}
+,{"stream_name":"stderr","time":36.174269707,"data":"             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.174424643,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1620, in __init__\n"}
+,{"stream_name":"stderr","time":36.175064295,"data":"    self._engine = self._make_engine(f, self.engine)\n"}
+,{"stream_name":"stderr","time":36.176343941,"data":"                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.176387705,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/parsers/readers.py\", line 1880, in _make_engine\n"}
+,{"stream_name":"stderr","time":36.176846309,"data":"    self.handles = get_handle(\n"}
+,{"stream_name":"stderr","time":36.177699319,"data":"                   ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":36.177783097,"data":"  File \"/usr/local/lib/python3.12/dist-packages/pandas/io/common.py\", line 873, in get_handle\n"}
+,{"stream_name":"stderr","time":36.179026967,"data":"    handle = open(\n"}
+,{"stream_name":"stderr","time":36.179508097,"data":"             ^^^^^\n"}
+,{"stream_name":"stderr","time":36.179747862,"data":"FileNotFoundError: [Errno 2] No such file or directory: '/kaggle/input/nvidia-nemotron-model-reasoning-challenge/train.csv'\n"}
+,{"stream_name":"stderr","time":40.477812471,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":40.477838132,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":40.679506539,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":40.679550034,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":41.339640017,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":42.421908826,"data":"[NbConvertApp] Writing 294209 bytes to __results__.html\n"}
+]

@@ -27,10 +27,42 @@ from transformers import (
 from trl import SFTTrainer
 
 # ============================================================
+# Debug: List available input data
+# ============================================================
+print("=== /kaggle/input contents ===")
+for root, dirs, files in os.walk("/kaggle/input"):
+    level = root.replace("/kaggle/input", "").count(os.sep)
+    indent = " " * 2 * level
+    print(f"{indent}{os.path.basename(root)}/")
+    if level < 2:
+        subindent = " " * 2 * (level + 1)
+        for file in files[:10]:
+            print(f"{subindent}{file}")
+        if len(files) > 10:
+            print(f"{subindent}... and {len(files) - 10} more files")
+
+# ============================================================
 # Configuration
 # ============================================================
-BASE_MODEL = "/kaggle/input/nemotron-3-nano-30b-a3b-bf16/transformers/default/1"
-TRAIN_CSV = "/kaggle/input/nvidia-nemotron-model-reasoning-challenge/train.csv"
+# Auto-detect paths
+def find_file(base_dir, filename):
+    for root, dirs, files in os.walk(base_dir):
+        if filename in files:
+            return os.path.join(root, filename)
+    return None
+
+BASE_MODEL = find_file("/kaggle/input", "config.json")
+if BASE_MODEL:
+    BASE_MODEL = os.path.dirname(BASE_MODEL)
+else:
+    BASE_MODEL = "/kaggle/input/nemotron-3-nano-30b-a3b-bf16/transformers/default/1"
+print(f"Using base model: {BASE_MODEL}")
+
+TRAIN_CSV = find_file("/kaggle/input", "train.csv")
+if not TRAIN_CSV:
+    raise FileNotFoundError("train.csv not found in /kaggle/input/")
+print(f"Using train CSV: {TRAIN_CSV}")
+
 OUTPUT_DIR = "/kaggle/working/lora_output"
 SUBMISSION_ZIP = "/kaggle/working/submission.zip"
 

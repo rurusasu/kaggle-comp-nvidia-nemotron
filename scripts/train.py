@@ -1,84 +1,110 @@
-"""Training entrypoint.
+"""Training entrypoint for the Nemotron LoRA fine-tuning competition.
+
+This script:
+1. Analyzes the training data
+2. Prepares the SFT dataset in chat format
+3. Generates the Kaggle training script
+4. Saves a sample adapter_config.json for reference
+
+Actual GPU training must be done on Kaggle or a GPU cloud instance.
 
 Usage:
     uv run python scripts/train.py
-    uv run python scripts/train.py --seed 0 --n-folds 10
 """
 
-import argparse
+import json
 import sys
 from pathlib import Path
-
-import numpy as np
-import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import Config
-from src.dataset import load_train
-from src.evaluate import get_cv_splitter, log_experiment, metric_fn
-from src.features import build_features
-from src.model import predict, save_model, train
+from src.dataset import load_train, prepare_sft_dataset, classify_task
+from src.evaluate import log_experiment
+from src.features import analyze_training_data, get_task_summary
+from src.model import save_adapter_config, generate_training_script, get_lora_config_dict
 from src.utils import Timer, set_seed
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--n-folds", type=int, default=5)
-    args = parser.parse_args()
-
-    cfg = Config(seed=args.seed, n_folds=args.n_folds)
+    cfg = Config()
     set_seed(cfg.seed)
 
+    # Step 1: Load and analyze training data
     with Timer("load data"):
-        df = load_train(cfg)
+        train_df = load_train(cfg)
+    print(f"Training data: {len(train_df)} examples")
+    print(f"Columns: {train_df.columns.tolist()}")
+    print()
 
-    with Timer("build features"):
-        df = build_features(df, cfg, is_train=True)
+    with Timer("analyze data"):
+        analyzed = analyze_training_data(train_df, cfg)
+        summary = get_task_summary(analyzed)
+        print("Task type summary:")
+        print(summary)
+        print()
 
-    target_col = "target"
-    feature_cols = [c for c in df.columns if c not in ["id", target_col]]
-    X = df[feature_cols]
-    y = df[target_col].values
+    # Step 2: Prepare SFT dataset
+    with Timer("prepare SFT dataset"):
+        sft_data = prepare_sft_dataset(cfg)
+        print(f"SFT dataset: {len(sft_data)} examples")
+        print(f"Sample message format:")
+        sample = sft_data[0]["messages"]
+        for msg in sample:
+            print(f"  [{msg['role']}] {msg['content'][:100]}...")
+        print()
 
-    splitter = get_cv_splitter(cfg)
-    fold_scores = []
-    oof_preds = np.zeros(len(df))
+    # Save SFT data as JSONL for reference
+    cfg.processed_dir.mkdir(parents=True, exist_ok=True)
+    sft_path = cfg.processed_dir / "train_sft.jsonl"
+    with open(sft_path, "w", encoding="utf-8") as f:
+        for example in sft_data:
+            f.write(json.dumps(example, ensure_ascii=False) + "\n")
+    print(f"SFT data saved to {sft_path}")
 
-    for fold, (train_idx, valid_idx) in enumerate(splitter.split(X, y)):
-        with Timer(f"fold {fold}"):
-            X_train, X_valid = X.iloc[train_idx], X.iloc[valid_idx]
-            y_train, y_valid = y[train_idx], y[valid_idx]
+    # Step 3: Save adapter config
+    config_path = save_adapter_config(cfg)
+    print(f"Adapter config saved to {config_path}")
 
-            model = train(X_train, y_train, X_valid, y_valid)
-            preds = predict(model, X_valid)
-            oof_preds[valid_idx] = preds
+    # Step 4: Generate Kaggle training script
+    kaggle_script = generate_training_script(cfg)
+    kaggle_script_path = cfg.output_dir / "kaggle_training_notebook.py"
+    cfg.output_dir.mkdir(parents=True, exist_ok=True)
+    kaggle_script_path.write_text(kaggle_script)
+    print(f"Kaggle training script saved to {kaggle_script_path}")
 
-            score = metric_fn(y_valid, preds)
-            fold_scores.append(score)
-            print(f"Fold {fold}: {score:.4f}")
-
-            save_model(model, cfg.models_dir / f"model_fold{fold}.pkl")
-
-    mean_score = np.mean(fold_scores)
-    print(f"\nCV Mean: {mean_score:.4f} (+/- {np.std(fold_scores):.4f})")
-
-    # Save OOF predictions
-    cfg.oof_dir.mkdir(parents=True, exist_ok=True)
-    oof_df = pd.DataFrame({"id": df["id"], "oof_pred": oof_preds})
-    oof_df.to_csv(cfg.oof_dir / "oof_predictions.csv", index=False)
-
+    # Step 5: Log experiment
+    lora_config = get_lora_config_dict(cfg)
     log_experiment(
         cfg,
         {
-            "experiment": f"seed{cfg.seed}_folds{cfg.n_folds}",
-            "seed": cfg.seed,
-            "n_folds": cfg.n_folds,
-            "fold_scores": fold_scores,
-            "mean_score": float(mean_score),
+            "experiment": "baseline_sft",
+            "num_examples": len(sft_data),
+            "task_distribution": summary["count"].to_dict(),
+            "lora_rank": cfg.lora_rank,
+            "lora_alpha": cfg.lora_alpha,
+            "learning_rate": cfg.learning_rate,
+            "num_epochs": cfg.num_train_epochs,
+            "notes": "Baseline SFT with direct answer in boxed format. No chain-of-thought reasoning yet.",
         },
     )
+
+    print()
+    print("=" * 60)
+    print("BASELINE SETUP COMPLETE")
+    print("=" * 60)
+    print()
+    print("Next steps:")
+    print("1. Upload to Kaggle notebook with GPU access")
+    print("2. Run the training script (kaggle_training_notebook.py)")
+    print("3. Download the submission.zip and submit")
+    print()
+    print("Improvement ideas:")
+    print("- Add chain-of-thought reasoning in assistant responses")
+    print("- Augment training data with more examples per task type")
+    print("- Use task-specific system prompts")
+    print("- Experiment with different LoRA hyperparameters")
+    print("- Add reinforcement learning (GRPO/DPO) after SFT")
 
 
 if __name__ == "__main__":

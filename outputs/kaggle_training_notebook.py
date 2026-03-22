@@ -1,79 +1,4 @@
-"""Model training and inference for the Nemotron LoRA fine-tuning competition.
-
-This module provides:
-1. LoRA fine-tuning setup for Nemotron-3-Nano-30B
-2. Training pipeline using Hugging Face TRL/SFTTrainer
-3. Inference using vLLM (matching competition evaluation setup)
-
-Note: Actual training requires GPU. This module defines the configuration
-and pipeline that will be run on Kaggle or a GPU cloud instance.
 """
-
-import json
-from pathlib import Path
-
-from src.config import Config
-
-
-def get_lora_config_dict(cfg: Config) -> dict:
-    """Return LoRA configuration as a dictionary (for adapter_config.json)."""
-    return {
-        "base_model_name_or_path": cfg.base_model,
-        "bias": "none",
-        "fan_in_fan_out": False,
-        "inference_mode": True,
-        "init_lora_weights": True,
-        "lora_alpha": cfg.lora_alpha,
-        "lora_dropout": cfg.lora_dropout,
-        "modules_to_save": None,
-        "peft_type": "LORA",
-        "r": cfg.lora_rank,
-        "revision": None,
-        "target_modules": cfg.lora_target_modules,
-        "task_type": "CAUSAL_LM",
-    }
-
-
-def get_training_args_dict(cfg: Config, output_dir: str = "./lora_output") -> dict:
-    """Return training arguments as a dictionary."""
-    return {
-        "output_dir": output_dir,
-        "num_train_epochs": cfg.num_train_epochs,
-        "per_device_train_batch_size": cfg.per_device_train_batch_size,
-        "gradient_accumulation_steps": cfg.gradient_accumulation_steps,
-        "learning_rate": cfg.learning_rate,
-        "warmup_ratio": cfg.warmup_ratio,
-        "bf16": cfg.bf16,
-        "logging_steps": 10,
-        "save_strategy": "epoch",
-        "save_total_limit": 2,
-        "seed": cfg.seed,
-        "lr_scheduler_type": "cosine",
-        "optim": "adamw_torch",
-        "gradient_checkpointing": True,
-        "report_to": "none",
-        "max_grad_norm": 1.0,
-        "weight_decay": 0.01,
-    }
-
-
-def save_adapter_config(cfg: Config, output_dir: Path | None = None) -> Path:
-    """Save adapter_config.json for the LoRA adapter."""
-    out = output_dir or cfg.adapter_dir
-    out.mkdir(parents=True, exist_ok=True)
-    config_path = out / "adapter_config.json"
-    config_dict = get_lora_config_dict(cfg)
-    config_path.write_text(json.dumps(config_dict, indent=2))
-    return config_path
-
-
-def generate_training_script(cfg: Config) -> str:
-    """Generate the Python training script content for Kaggle notebook execution.
-
-    This script is designed to run on Kaggle with GPU access and the
-    Nemotron-3-Nano-30B base model available.
-    """
-    return '''"""
 Nemotron-3-Nano-30B LoRA Fine-Tuning Script
 ============================================
 Run this in a Kaggle notebook with GPU enabled.
@@ -118,7 +43,7 @@ SEED = 42
 
 SYSTEM_PROMPT = (
     "You are a precise reasoning assistant. Solve the given puzzle step by step. "
-    "Think carefully about the pattern, then provide your final answer inside \\\\boxed{}."
+    "Think carefully about the pattern, then provide your final answer inside \\boxed{}."
 )
 
 
@@ -130,7 +55,7 @@ def format_example(row):
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": row["prompt"]},
-        {"role": "assistant", "content": f"Let me analyze this step by step.\\n\\nAfter careful analysis of the pattern, the answer is:\\n\\n\\\\boxed{{{row['answer']}}}"},
+        {"role": "assistant", "content": f"Let me analyze this step by step.\n\nAfter careful analysis of the pattern, the answer is:\n\n\\boxed{{{row['answer']}}}"},
     ]
     return {"messages": messages}
 
@@ -253,4 +178,3 @@ if __name__ == "__main__":
     adapter_dir = train()
     package_submission(adapter_dir)
     print("Done!")
-'''

@@ -1,0 +1,18 @@
+{
+  "experiment": "baseline_sft",
+  "num_examples": 9500,
+  "task_distribution": {
+    "bit_manipulation": 1602,
+    "cipher": 1576,
+    "gravitational": 1597,
+    "numeral_conversion": 1576,
+    "symbol_equation": 1555,
+    "unit_conversion": 1594
+  },
+  "lora_rank": 32,
+  "lora_alpha": 64,
+  "learning_rate": 0.0002,
+  "num_epochs": 3,
+  "notes": "Baseline SFT with direct answer in boxed format. No chain-of-thought reasoning yet.",
+  "timestamp": "20260322_112951"
+}

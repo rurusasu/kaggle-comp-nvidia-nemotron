@@ -1,22 +1,92 @@
+"""Evaluation utilities matching the competition metric.
+
+The competition evaluates by extracting answers from \\boxed{} format
+and comparing with ground truth using exact string match or numerical
+tolerance of 1e-2.
+"""
+
 import csv
 import json
+import re
 from datetime import UTC, datetime
-
-import numpy as np
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import KFold
 
 from src.config import Config
 
 
-def metric_fn(y_true: np.ndarray, y_pred: np.ndarray) -> float:
-    """Competition metric. Replace with competition-specific metric."""
-    return accuracy_score(y_true, y_pred)
+def extract_boxed_answer(text: str) -> str | None:
+    """Extract the last \\boxed{...} content from model output.
+
+    Handles nested braces by counting brace depth.
+    """
+    # Find all \boxed{ occurrences and take the last one
+    pattern = r"\\boxed\{"
+    matches = list(re.finditer(pattern, text))
+    if not matches:
+        return None
+
+    last_match = matches[-1]
+    start = last_match.end()
+    depth = 1
+    i = start
+    while i < len(text) and depth > 0:
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+        i += 1
+
+    if depth == 0:
+        return text[start : i - 1].strip()
+    return None
 
 
-def get_cv_splitter(cfg: Config):
-    """Return CV splitter. Replace with StratifiedKFold/GroupKFold as needed."""
-    return KFold(n_splits=cfg.n_folds, shuffle=True, random_state=cfg.seed)
+def extract_answer(text: str) -> str | None:
+    """Extract answer from model output, trying \\boxed{} first, then fallback heuristics."""
+    # Try boxed format first
+    boxed = extract_boxed_answer(text)
+    if boxed is not None:
+        return boxed
+
+    # Fallback: look for last number
+    numbers = re.findall(r"-?\d+\.?\d*", text)
+    if numbers:
+        return numbers[-1]
+
+    return None
+
+
+def is_correct(prediction: str | None, ground_truth: str, tol: float = 1e-2) -> bool:
+    """Check if prediction matches ground truth.
+
+    Uses exact string match first, then tries numerical comparison
+    with relative tolerance.
+    """
+    if prediction is None:
+        return False
+
+    # Exact string match
+    if prediction.strip() == str(ground_truth).strip():
+        return True
+
+    # Numerical comparison
+    try:
+        pred_val = float(prediction)
+        true_val = float(ground_truth)
+        if true_val == 0:
+            return abs(pred_val) < tol
+        return abs(pred_val - true_val) / abs(true_val) < tol
+    except (ValueError, ZeroDivisionError):
+        pass
+
+    return False
+
+
+def compute_accuracy(predictions: list[str | None], ground_truths: list[str]) -> float:
+    """Compute accuracy score matching competition evaluation."""
+    if not predictions:
+        return 0.0
+    correct = sum(is_correct(p, gt) for p, gt in zip(predictions, ground_truths))
+    return correct / len(predictions)
 
 
 def log_experiment(cfg: Config, result: dict) -> None:

@@ -1,0 +1,2 @@
+experiment,learning_rate,lora_alpha,lora_rank,notes,num_epochs,num_examples,task_distribution,timestamp
+baseline_sft,0.0002,64,32,Baseline SFT with direct answer in boxed format. No chain-of-thought reasoning yet.,3,9500,"{'bit_manipulation': 1602, 'cipher': 1576, 'gravitational': 1597, 'numeral_conversion': 1576, 'symbol_equation': 1555, 'unit_conversion': 1594}",20260322_112951

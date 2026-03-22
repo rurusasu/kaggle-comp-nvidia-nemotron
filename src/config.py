@@ -4,7 +4,7 @@ from pathlib import Path
 
 @dataclass
 class Config:
-    competition_name: str = "default"
+    competition_name: str = "nvidia-nemotron-model-reasoning-challenge"
     seed: int = 42
     n_folds: int = 5
 

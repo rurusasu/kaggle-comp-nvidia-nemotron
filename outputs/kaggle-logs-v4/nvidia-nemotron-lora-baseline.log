@@ -1,0 +1,68 @@
+[{"stream_name":"stdout","time":4.10293175,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 531.0/531.0 kB 14.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":4.62444731,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 60.7/60.7 MB 33.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":36.717761995000004,"data":"=== /kaggle/input contents ===\n"}
+,{"stream_name":"stdout","time":36.717797816,"data":"input/\n"}
+,{"stream_name":"stdout","time":36.717803728,"data":"  models/\n"}
+,{"stream_name":"stdout","time":36.717891172,"data":"    metric/\n"}
+,{"stream_name":"stdout","time":36.717970574,"data":"      nemotron-3-nano-30b-a3b-bf16/\n"}
+,{"stream_name":"stdout","time":36.718043086,"data":"        transformers/\n"}
+,{"stream_name":"stdout","time":36.718189628,"data":"          default/\n"}
+,{"stream_name":"stdout","time":36.720381538,"data":"            1/\n"}
+,{"stream_name":"stdout","time":36.722585473,"data":"              .eval_results/\n"}
+,{"stream_name":"stdout","time":36.723284081,"data":"              .cache/\n"}
+,{"stream_name":"stdout","time":36.724574577,"data":"                huggingface/\n"}
+,{"stream_name":"stdout","time":36.725677043,"data":"                  download/\n"}
+,{"stream_name":"stdout","time":36.7272576,"data":"                    .eval_results/\n"}
+,{"stream_name":"stdout","time":36.727823025,"data":"                    nemo-evaluator-launcher-configs/\n"}
+,{"stream_name":"stdout","time":36.728433081,"data":"              nemo-evaluator-launcher-configs/\n"}
+,{"stream_name":"stdout","time":36.728599772,"data":"  competitions/\n"}
+,{"stream_name":"stdout","time":36.72962036,"data":"    nvidia-nemotron-model-reasoning-challenge/\n"}
+,{"stream_name":"stdout","time":36.730626713,"data":"Using base model: /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1\n"}
+,{"stream_name":"stdout","time":36.735958342,"data":"Using train CSV: /kaggle/input/competitions/nvidia-nemotron-model-reasoning-challenge/train.csv\n"}
+,{"stream_name":"stdout","time":36.73604909,"data":"Preparing dataset...\n"}
+,{"stream_name":"stdout","time":37.229831158,"data":"Dataset size: 9500\n"}
+,{"stream_name":"stdout","time":37.229873495,"data":"Loading model...\n"}
+,{"stream_name":"stdout","time":37.234150259,"data":"The repository /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1 contains custom code which must be executed to correctly load the model. You can inspect the repository content at /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1 .\n"}
+,{"stream_name":"stdout","time":37.234194151,"data":" You can inspect the repository content at https://hf.co//kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1.\n"}
+,{"stream_name":"stdout","time":37.234200228,"data":"You can avoid this prompt in future by passing the argument `trust_remote_code=True`.\n"}
+,{"stream_name":"stdout","time":37.234205914,"data":"\n"}
+,{"stream_name":"stderr","time":37.235263374,"data":"You are using a model of type nemotron_h to instantiate a model of type . This is not supported for all configurations of models and can yield errors.\n"}
+,{"stream_name":"stderr","time":38.959509075,"data":"`torch_dtype` is deprecated! Use `dtype` instead!\n"}
+,{"stream_name":"stderr","time":39.016710425,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":39.016736707,"data":"  File \"/root/.cache/huggingface/modules/transformers_modules/_1/modeling_nemotron_h.py\", line 64, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":39.016844178,"data":"    from mamba_ssm.ops.triton.layernorm_gated import rmsnorm_fn\n"}
+,{"stream_name":"stderr","time":39.017028308,"data":"ModuleNotFoundError: No module named 'mamba_ssm'\n"}
+,{"stream_name":"stderr","time":39.017036735,"data":"\n"}
+,{"stream_name":"stderr","time":39.017074136,"data":"During handling of the above exception, another exception occurred:\n"}
+,{"stream_name":"stderr","time":39.017094474,"data":"\n"}
+,{"stream_name":"stderr","time":39.01717823,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":39.017246413,"data":"  File \"/kaggle/src/script.py\", line 215, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":39.017453499,"data":"    adapter_dir = train()\n"}
+,{"stream_name":"stderr","time":39.019271185,"data":"                  ^^^^^^^\n"}
+,{"stream_name":"stderr","time":39.019288304,"data":"  File \"/kaggle/src/script.py\", line 158, in train\n"}
+,{"stream_name":"stderr","time":39.01929312,"data":"    model, tokenizer = setup_model_and_tokenizer()\n"}
+,{"stream_name":"stderr","time":39.019296832,"data":"                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":39.019300823,"data":"  File \"/kaggle/src/script.py\", line 124, in setup_model_and_tokenizer\n"}
+,{"stream_name":"stderr","time":39.019304888,"data":"    model = AutoModelForCausalLM.from_pretrained(\n"}
+,{"stream_name":"stderr","time":39.019308595,"data":"            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":39.019312047,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/models/auto/auto_factory.py\", line 354, in from_pretrained\n"}
+,{"stream_name":"stderr","time":39.019418136,"data":"    model_class = get_class_from_dynamic_module(\n"}
+,{"stream_name":"stderr","time":39.020964153,"data":"                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":39.020979626,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/dynamic_module_utils.py\", line 583, in get_class_from_dynamic_module\n"}
+,{"stream_name":"stderr","time":39.020986246,"data":"    return get_class_in_module(class_name, final_module, force_reload=force_download)\n"}
+,{"stream_name":"stderr","time":39.023118245,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":39.023181991,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/dynamic_module_utils.py\", line 309, in get_class_in_module\n"}
+,{"stream_name":"stderr","time":39.023451712,"data":"    module_spec.loader.exec_module(module)\n"}
+,{"stream_name":"stderr","time":39.023508743,"data":"  File \"\u003cfrozen importlib._bootstrap_external\u003e\", line 999, in exec_module\n"}
+,{"stream_name":"stderr","time":39.023556402,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 488, in _call_with_frames_removed\n"}
+,{"stream_name":"stderr","time":39.023623016,"data":"  File \"/root/.cache/huggingface/modules/transformers_modules/_1/modeling_nemotron_h.py\", line 66, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":39.023782252,"data":"    raise ImportError(\"mamba-ssm is required by the Mamba model but cannot be imported\")\n"}
+,{"stream_name":"stderr","time":39.023909208,"data":"ImportError: mamba-ssm is required by the Mamba model but cannot be imported\n"}
+,{"stream_name":"stderr","time":43.643272629,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":43.643311661,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":43.856120132,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":43.85614569,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":44.523759312,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":45.706969532,"data":"[NbConvertApp] Writing 300553 bytes to __results__.html\n"}
+,{"stream_name":"stdout","time":46.337957986,"data":"Do you wish to run the custom code? [y/N] "}
+]

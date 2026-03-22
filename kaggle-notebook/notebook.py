@@ -8,7 +8,10 @@ Requires: transformers, peft, trl, datasets, bitsandbytes
 import subprocess
 import sys
 
-subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "trl", "peft", "bitsandbytes", "datasets", "accelerate"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "trl", "peft", "bitsandbytes", "datasets", "accelerate", "mamba-ssm", "causal-conv1d"])
+
+os.environ["TRUST_REMOTE_CODE"] = "1"
+os.environ["HF_HUB_TRUST_REMOTE_CODE"] = "1"
 
 import json
 import os

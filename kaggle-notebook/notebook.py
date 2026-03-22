@@ -5,6 +5,7 @@ Run this in a Kaggle notebook with GPU enabled.
 Requires: transformers, peft, trl, datasets, bitsandbytes
 """
 
+import os
 import subprocess
 import sys
 
@@ -14,9 +15,10 @@ os.environ["TRUST_REMOTE_CODE"] = "1"
 os.environ["HF_HUB_TRUST_REMOTE_CODE"] = "1"
 
 import json
-import os
 import zipfile
 
+import kagglehub
+import mamba_ssm  # Required before loading hybrid Mamba-Transformer model
 import pandas as pd
 import torch
 from datasets import Dataset
@@ -54,11 +56,16 @@ def find_file(base_dir, filename):
             return os.path.join(root, filename)
     return None
 
-BASE_MODEL = find_file("/kaggle/input", "config.json")
-if BASE_MODEL:
-    BASE_MODEL = os.path.dirname(BASE_MODEL)
-else:
-    BASE_MODEL = "/kaggle/input/nemotron-3-nano-30b-a3b-bf16/transformers/default/1"
+try:
+    BASE_MODEL = kagglehub.model_download("metric/nemotron-3-nano-30b-a3b-bf16/transformers/default")
+    print(f"Model downloaded via kagglehub: {BASE_MODEL}")
+except Exception as e:
+    print(f"kagglehub download failed ({e}), falling back to local search...")
+    BASE_MODEL = find_file("/kaggle/input", "config.json")
+    if BASE_MODEL:
+        BASE_MODEL = os.path.dirname(BASE_MODEL)
+    else:
+        BASE_MODEL = "/kaggle/input/nemotron-3-nano-30b-a3b-bf16/transformers/default/1"
 print(f"Using base model: {BASE_MODEL}")
 
 TRAIN_CSV = find_file("/kaggle/input", "train.csv")
@@ -66,13 +73,13 @@ if not TRAIN_CSV:
     raise FileNotFoundError("train.csv not found in /kaggle/input/")
 print(f"Using train CSV: {TRAIN_CSV}")
 
-OUTPUT_DIR = "/kaggle/working/lora_output"
+OUTPUT_DIR = "/kaggle/working"
 SUBMISSION_ZIP = "/kaggle/working/submission.zip"
 
 LORA_RANK = 32
-LORA_ALPHA = 64
+LORA_ALPHA = 16
 LORA_DROPOUT = 0.05
-TARGET_MODULES = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+TARGET_MODULES = r".*\.(in_proj|out_proj|up_proj|down_proj)$"
 
 NUM_EPOCHS = 3
 BATCH_SIZE = 1
@@ -191,8 +198,8 @@ def train():
     print("Starting training...")
     trainer.train()
 
-    print("Saving adapter...")
-    trainer.save_model(OUTPUT_DIR)
+    print(f"Saving adapter to {OUTPUT_DIR}...")
+    model.save_pretrained(OUTPUT_DIR)
 
     return OUTPUT_DIR
 
@@ -201,14 +208,16 @@ def train():
 # Submission Packaging
 # ============================================================
 def package_submission(adapter_dir):
-    """Package the LoRA adapter into submission.zip."""
-    with zipfile.ZipFile(SUBMISSION_ZIP, "w", zipfile.ZIP_DEFLATED) as zf:
-        for root, dirs, files in os.walk(adapter_dir):
-            for file in files:
-                filepath = os.path.join(root, file)
-                arcname = os.path.relpath(filepath, adapter_dir)
-                zf.write(filepath, arcname)
-    print(f"Submission saved to {SUBMISSION_ZIP}")
+    """Package the LoRA adapter into submission.zip (matches official demo pattern)."""
+    # Use subprocess zip like official demo: zip all files in /kaggle/working
+    # -m flag moves files into zip (removes originals)
+    subprocess.run(
+        "zip -m submission.zip adapter_config.json adapter_model.safetensors",
+        shell=True,
+        check=True,
+        cwd=adapter_dir,
+    )
+    print(f"Submission saved to {os.path.join(adapter_dir, 'submission.zip')}")
 
 
 # ============================================================

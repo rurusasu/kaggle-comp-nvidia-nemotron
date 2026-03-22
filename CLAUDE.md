@@ -43,7 +43,7 @@ NVIDIA Nemotron 3 Nano の推論精度を向上させる。許可されるテク
 
 - **Method:** Supervised Fine-Tuning (SFT) on train.csv (9,500 examples, 6 task types)
 - **Base Model:** Nemotron-3-Nano-30B-A3B-BF16 (4bit quantized)
-- **LoRA Config:** rank=32, alpha=64, dropout=0.05, target=all attention+MLP layers
+- **LoRA Config:** rank=32, alpha=16, dropout=0.05, target=in_proj|out_proj|up_proj|down_proj (regex, matches official demo)
 - **Training:** 3 epochs, batch=1, grad_accum=8, lr=2e-4, cosine schedule
 - **Answer Format:** `\boxed{ANSWER}` extraction
 

@@ -89,7 +89,8 @@ NVIDIA Nemotron 3 Nano の推論精度を向上させる。許可されるテク
 1. **依存パッケージ不足**: Kaggle 環境に `trl`, `peft`, `bitsandbytes`, `accelerate` がプリインストールされていない。Notebook 冒頭で `pip install` が必須。
 2. **データマウント**: `kernel-metadata.json` の `competition_sources` を配列形式で指定しないとコンペデータがマウントされない。`"competition": "slug"` 形式は効かなかった。
 3. **パス不定**: `/kaggle/input/` 配下のディレクトリ名はコンペやモデルによって異なる。ハードコードせず `os.walk` で自動検出するのが安全。
-4. **v1→v4 の試行錯誤**: trl 不足(v1) → pip install 追加(v2) → データ未マウント(v3) → competition_sources 修正(v4)。ローカルでの事前検証ができないため、push → エラー → 修正のサイクルが遅い。
+4. **v1→v6 の試行錯誤**: trl 不足(v1) → pip install 追加(v2) → データ未マウント(v3) → competition_sources 修正(v4) → mamba-ssm 追加(v5, RUNNING成功) → os import 修正+LoRA修正(v6, VRAM不足)
+5. **GPU VRAM 不足**: Nemotron-3-Nano-30B は T4 16GB では 4bit 量子化でも載らない。公式 Demo は RTX Pro 6000 (48GB) を使用。**Web UI から GPU タイプを RTX Pro 6000 に変更する必要がある**。
 
 ### 対策
 

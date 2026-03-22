@@ -1,0 +1,79 @@
+[{"stream_name":"stdout","time":3.667164725,"data":"     „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 121.7/121.7 kB 4.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":316.521635817,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 531.0/531.0 kB 201.2 kB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":317.03939784,"data":"   „ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª„ª 60.7/60.7 MB 33.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":1860.604089386,"data":"=== /kaggle/input contents ===\n"}
+,{"stream_name":"stdout","time":1860.604136577,"data":"input/\n"}
+,{"stream_name":"stdout","time":1860.604226313,"data":"  competitions/\n"}
+,{"stream_name":"stdout","time":1860.605948598,"data":"    nvidia-nemotron-model-reasoning-challenge/\n"}
+,{"stream_name":"stdout","time":1860.606043651,"data":"  models/\n"}
+,{"stream_name":"stdout","time":1860.606138541,"data":"    metric/\n"}
+,{"stream_name":"stdout","time":1860.606248253,"data":"      nemotron-3-nano-30b-a3b-bf16/\n"}
+,{"stream_name":"stdout","time":1860.606352463,"data":"        transformers/\n"}
+,{"stream_name":"stdout","time":1860.606462344,"data":"          default/\n"}
+,{"stream_name":"stdout","time":1860.607656107,"data":"            1/\n"}
+,{"stream_name":"stdout","time":1860.609963207,"data":"              .eval_results/\n"}
+,{"stream_name":"stdout","time":1860.610658227,"data":"              .cache/\n"}
+,{"stream_name":"stdout","time":1860.611589961,"data":"                huggingface/\n"}
+,{"stream_name":"stdout","time":1860.612817604,"data":"                  download/\n"}
+,{"stream_name":"stdout","time":1860.615533071,"data":"                    .eval_results/\n"}
+,{"stream_name":"stdout","time":1860.616118556,"data":"                    nemo-evaluator-launcher-configs/\n"}
+,{"stream_name":"stdout","time":1860.616783415,"data":"              nemo-evaluator-launcher-configs/\n"}
+,{"stream_name":"stdout","time":1860.827270314,"data":"Model downloaded via kagglehub: /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1\n"}
+,{"stream_name":"stdout","time":1860.827305374,"data":"Using base model: /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1\n"}
+,{"stream_name":"stdout","time":1860.828091117,"data":"Using train CSV: /kaggle/input/competitions/nvidia-nemotron-model-reasoning-challenge/train.csv\n"}
+,{"stream_name":"stdout","time":1860.828134971,"data":"Preparing dataset...\n"}
+,{"stream_name":"stdout","time":1861.352485629,"data":"Dataset size: 9500\n"}
+,{"stream_name":"stdout","time":1861.352523442,"data":"Loading model...\n"}
+,{"stream_name":"stdout","time":1861.356757223,"data":"The repository /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1 contains custom code which must be executed to correctly load the model. You can inspect the repository content at /kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1 .\n"}
+,{"stream_name":"stdout","time":1861.356783096,"data":" You can inspect the repository content at https://hf.co//kaggle/input/models/metric/nemotron-3-nano-30b-a3b-bf16/transformers/default/1.\n"}
+,{"stream_name":"stdout","time":1861.356790362,"data":"You can avoid this prompt in future by passing the argument `trust_remote_code=True`.\n"}
+,{"stream_name":"stdout","time":1861.356795093,"data":"\n"}
+,{"stream_name":"stderr","time":1861.357903708,"data":"You are using a model of type nemotron_h to instantiate a model of type . This is not supported for all configurations of models and can yield errors.\n"}
+,{"stream_name":"stderr","time":1863.076553468,"data":"`torch_dtype` is deprecated! Use `dtype` instead!\n"}
+,{"stream_name":"stderr","time":1863.209793943,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":1863.20983006,"data":"    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.\n"}
+,{"stream_name":"stderr","time":1863.209835219,"data":"    Minimum and Maximum cuda capability supported by this version of PyTorch is\n"}
+,{"stream_name":"stderr","time":1863.209837965,"data":"    (7.0) - (12.0)\n"}
+,{"stream_name":"stderr","time":1863.209840623,"data":"    \n"}
+,{"stream_name":"stderr","time":1863.209843013,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":1863.209845442,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":1863.209848082,"data":"    Please install PyTorch with a following CUDA\n"}
+,{"stream_name":"stderr","time":1863.209850554,"data":"    configurations:  12.6 following instructions at\n"}
+,{"stream_name":"stderr","time":1863.209853825,"data":"    https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":1863.209857556,"data":"    \n"}
+,{"stream_name":"stderr","time":1863.20986245,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":1863.210173952,"data":"/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: \n"}
+,{"stream_name":"stderr","time":1863.210182185,"data":"Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.\n"}
+,{"stream_name":"stderr","time":1863.210186132,"data":"The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.\n"}
+,{"stream_name":"stderr","time":1863.210190011,"data":"If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/\n"}
+,{"stream_name":"stderr","time":1863.21019408,"data":"\n"}
+,{"stream_name":"stderr","time":1863.210197435,"data":"  queued_call()\n"}
+,{"stream_name":"stderr","time":1872.958085632,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1872.958126244,"data":"  File \"/kaggle/src/script.py\", line 227, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1872.958290523,"data":"    adapter_dir = train()\n"}
+,{"stream_name":"stderr","time":1872.959058271,"data":"                  ^^^^^^^\n"}
+,{"stream_name":"stderr","time":1872.959122232,"data":"  File \"/kaggle/src/script.py\", line 168, in train\n"}
+,{"stream_name":"stderr","time":1872.959379434,"data":"    model, tokenizer = setup_model_and_tokenizer()\n"}
+,{"stream_name":"stderr","time":1872.960718212,"data":"                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1872.960811041,"data":"  File \"/kaggle/src/script.py\", line 134, in setup_model_and_tokenizer\n"}
+,{"stream_name":"stderr","time":1872.961016266,"data":"    model = AutoModelForCausalLM.from_pretrained(\n"}
+,{"stream_name":"stderr","time":1872.962290149,"data":"            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1872.96235394,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/models/auto/auto_factory.py\", line 365, in from_pretrained\n"}
+,{"stream_name":"stderr","time":1872.962679649,"data":"    return model_class.from_pretrained(\n"}
+,{"stream_name":"stderr","time":1872.963746334,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1872.963789034,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/modeling_utils.py\", line 4091, in from_pretrained\n"}
+,{"stream_name":"stderr","time":1872.96474277,"data":"    device_map = _get_device_map(model, device_map, max_memory, hf_quantizer)\n"}
+,{"stream_name":"stderr","time":1872.96668996,"data":"                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":1872.96677629,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/integrations/accelerate.py\", line 323, in _get_device_map\n"}
+,{"stream_name":"stderr","time":1872.966989723,"data":"    hf_quantizer.validate_environment(device_map=device_map)\n"}
+,{"stream_name":"stderr","time":1872.967096771,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/quantizers/quantizer_bnb_4bit.py\", line 72, in validate_environment\n"}
+,{"stream_name":"stderr","time":1872.967275886,"data":"    raise ValueError(\n"}
+,{"stream_name":"stderr","time":1872.967404664,"data":"ValueError: Some modules are dispatched on the CPU or the disk. Make sure you have enough GPU RAM to fit the quantized model. If you want to dispatch the model on the CPU or the disk while keeping these modules in 32-bit, you need to set `llm_int8_enable_fp32_cpu_offload=True` and pass a custom `device_map` to `from_pretrained`. Check https://huggingface.co/docs/transformers/main/en/main_classes/quantization#offload-between-cpu-and-gpu for more details. \n"}
+,{"stream_name":"stderr","time":1878.061005164,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1878.061035609,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1878.279091741,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1878.279126786,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1878.937382401,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1879.78253178,"data":"[NbConvertApp] Writing 301520 bytes to __results__.html\n"}
+,{"stream_name":"stdout","time":1880.466635683,"data":"Do you wish to run the custom code? [y/N] "}
+]
